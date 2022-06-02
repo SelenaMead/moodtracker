@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    
+    <div class="col-9">
+        <form method="POST" action="{{ url_for('profile') }}">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-6">
+                        <input type="text" class="form-control" name="first_name" id="first_name" value="first_name" aria-describedby="helpId" placeholder="First Name">
+                    </div>
+                    <div class="col-6">
+                        <input type="text" class="form-control" name="last_name" id="last_name" value="last_name" aria-describedby="helpId" placeholder="Last Name">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" name="email" id="email" value="email" aria-describedby="helpId" placeholder="Email Address">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" name="confirm_password" id="confirm_password" aria-describedby="helpId" placeholder="Confirm Password">
+            </div>
+            <input type="submit" class="btn btn-info btn-block" value="Update" />
+        </form>
+    </div>
+</div>
+
+<hr />
+
+<h1> Stats </h1>
+    
+<div class="row">
+    <div class="col-4">
+    <p>Your mood has been great {{ moodCounter.count('Great!😁') }} day(s)</p>
+    <p>Your mood has been good {{ moodCounter.count('Good!😃') }} day(s)</p>
+    <p>Your mood has been okay {{ moodCounter.count('Okay🙂') }} day(s)</p>
+    <p>Your mood has been bad {{ moodCounter.count('Bad🙁') }} day(s)</p>
+    <p>Your mood has been terrible {{ moodCounter.count('Terrible😞') }} day(s)</p>
+    </div>
+    <div class="col-4">
+        <p>You slept 10+ hours {{ sleepCounter.count('10+hours') }} day(s)</p>
+        <p>You slept 8-9 hours {{ sleepCounter.count('8-9hours') }} day(s)</p>
+        <p>You slept 6-7 hours {{ sleepCounter.count('6-7hours') }} day(s)</p>
+        <p>You slept less than  hours {{ sleepCounter.count('less than 6 hours') }} day(s)</p>
+    </div>
+    <div class="col-4">
+        <p>You showered and brushed your teeth  {{ hygieneCounter.count('true') }} day(s)</p>
+        <p>You were active {{ activeCounter.count('true') }} day(s)</p>
+        <p>You ate a healthy meal  {{ ateCounter.count('true') }} day(s)</p>
+        <p>You took your medications {{ medCounter.count('true') }} day(s)</p>
+
+    </div>
+
+
+   
+
+
+
+{% endblock content %}

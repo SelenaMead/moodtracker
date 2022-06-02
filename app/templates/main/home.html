@@ -1,0 +1,87 @@
+
+{% extends 'layout.html' %}
+{% block content %}
+
+<h2>
+    {% if current_user.is_authenticated %}
+        Hello, {{ current_user.first_name }} {{ current_user.last_name }}
+    {% else %}
+        Welcome
+    {% endif %}
+</h2>
+<h3>Have you tracked your mood today? </h3>
+
+<div class="row justify-content-center">
+    <form action="" method="POST">
+    <div class="col-12">
+            <div class="form-group">
+              <select class="form-control" name="moodSelection">
+                <option disabled selected>How was your mood today? </option>
+                <option>Great!😁</option>
+                <option>Good!😃</option>
+                <option>Okay🙂</option>
+                <option>Bad🙁</option>
+                <option>Terrible😞</option>
+              </select>
+              <select class="form-control" name="sleepSelection">
+                <option disabled selected>How much sleep were you able to get?</option>
+                <option>10+hours</option>
+                <option>8-9hours</option>
+                <option>6-7hours</option>
+                <option>less than 6 hours</option>
+              </select>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="post" id="post" aria-describedby="helpId" placeholder="Any comments?">
+            </div>
+        </div>
+    <div class="col-12">
+       
+            <div class="form-group">
+                <input type="checkbox" name="hygiene" value="hygiene">
+                <label for="hygiene"> Did you take a shower and brush your teeth?</label><br>
+                <input type="checkbox" name="meal" value="meal">
+                <label for="meal">Did you eat a healthy meal?</label><br>
+                <input type="checkbox" name="active" value="active">
+                <label for="active">Were you active? </label><br>
+                <input type="checkbox" name="meds" value="meds">
+                <label for="active">Did you take your medications?</label><br>
+            </div>
+       </div>
+    
+    </div>
+<button type="submit" class="btn btn-info btn-block">Submit</button>
+</form>
+
+
+<h1> History </h1>
+
+
+<div class="row">
+    <div class="col-12">
+        <ul class="list-group">
+            {% for post in posts %}
+            <h1>{{ moment(post.date_created).calendar()}}</h1>
+                <li class="list-group-item mb-4">
+                    <p>Mood: {{ post.mood}}</p>
+                    <p>Sleep: {{ post.sleep}}</p>
+                     <p>Comments: {{ post.body }}</p>
+                    <p> Was active: {{post.active}}</p>
+                     <p>Took care of hygiene: {{post.hygiene}}</p>
+                     <p>Ate healthy: {{post.ate}}</p>
+                     <p>Took Medications: {{post.meds}}</p>
+                    <div>
+                        <small>
+                            
+                            <span class="float-right">
+                               <a href="{{ url_for('post_delete', post_id=post.id) }}"> Delete </a>
+                            </span>
+                        </small>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock content %}
